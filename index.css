@@ -13,12 +13,15 @@
     --pile-bg-color: rgba(255, 255, 255, .25);
     --board-height: calc(100vh - 50px);
     --board-margin: 50px;
+    --board-width: calc(100vw - var(--board-margin)); 
     --board-width: 100vw;
-    --card-height: 20.450285714285714285714285714286vw;
-    --card-width: calc(var(--card-height) * 0.6428571428571429);
+    /* --card-height: 20.450285714285714285714285714286vw; */
+    --card-width: calc(calc(100vw - calc(var(--card-spacing) * 8)) / 7) ;
+    --card-height: calc(var(--card-width) * 1.555555555555556);
+    /* --card-width: calc(var(--card-height) * 0.6428571428571429); */
     --card-border: calc(var(--card-height) / 20);
     --card-quarter: calc(var(--card-height) / 4);
-    --card-spacing: 1vh;
+    --card-spacing: 1vw;
     --card-row-small: calc(var(--card-height) * .25);
     --card-row-large: calc(var(--card-height) * .50);
     --card-column: calc(var(--card-width) / 3);
@@ -43,6 +46,7 @@
         --board-height: 100vh;
         --board-width: calc(100vw - var(--board-margin)); 
         --card-height: 24.25vh;
+        --card-width: calc(var(--card-height) * 0.6428571428571429);
         --card-spacing: 1vh;
         --card-spacing-total: calc(var(--card-spacing) * 6);
         --card-font-small: 5vh;
