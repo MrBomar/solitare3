@@ -1,0 +1,37 @@
+.menuButton {
+    height: 45px;
+    width: calc(20vw);
+    background-color: black;
+    color: silver;
+    display: block;
+    text-align: center;
+    padding: 5px 0px 0px 0px;
+    z-index: 101;
+}
+
+.menuButton:hover {
+    background-color: rgb(50,50,50);
+}
+
+#homeButton { left: 0vw; font-weight: bolder; }
+#undoButton { left: 20vw }
+#randomButton { left: 40vw }
+#solvableButton { left: 60vw }
+#replayButton { left: 80vw }
+
+@media screen and (min-aspect-ratio: 1130 / 938) {
+    .menuButton {
+        display: flex;
+        height: calc(20vh - 6px);
+        width: 50px;
+        line-height: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #homeButton { top: 0vh; left: 0px; font-weight: bolder; }
+    #undoButton { top: 20vh; left: 0px }
+    #randomButton { top: 40vh; left: 0px }
+    #solvableButton { top: 60vh; left: 0px; }
+    #replayButton { top: 80vh; left: 0px; }
+}

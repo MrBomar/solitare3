@@ -1,0 +1,67 @@
+/* Portrait */
+
+* {
+    margin: 0px;
+    padding: 0px;
+    text-size-adjust: none;
+    user-select: none;
+    position: absolute;
+}
+
+:root {
+    --bg-color: red;
+    --pile-bg-color: rgba(255, 255, 255, .25);
+    --board-height: calc(100vh - 50px);
+    --board-margin: 50px;
+    --board-width: 100vw;
+    --card-height: 20.450285714285714285714285714286vw;
+    --card-width: calc(var(--card-height) * 0.6428571428571429);
+    --card-border: calc(var(--card-height) / 20);
+    --card-quarter: calc(var(--card-height) / 4);
+    --card-spacing: 1vh;
+    --card-row-small: calc(var(--card-height) * .25);
+    --card-row-large: calc(var(--card-height) * .50);
+    --card-column: calc(var(--card-width) / 3);
+    --card-font-small: 4vw;
+    --card-font-large: 8vw;
+    --tableau-height: calc(var(--board-height) - calc(var(--card-spacing) * 3) - var(--card-height));
+    --tableau-top: calc(var(--board-margin) + calc(var(--card-spacing) * 2) + var(--card-height));
+    --top-row-margin: calc(var(--board-margin) + var(--card-spacing));
+    --pile-col1-margin: var(--card-spacing);
+    --pile-col2-margin: calc(calc(var(--card-spacing) * 2) + var(--card-width));
+    --pile-col3-margin: calc(calc(var(--card-spacing) * 3) + calc(var(--card-width) * 2));
+    --pile-col4-margin: calc(calc(var(--card-spacing) * 4) + calc(var(--card-width) * 3));
+    --pile-col5-margin: calc(calc(var(--card-spacing) * 5) + calc(var(--card-width) * 4));
+    --pile-col6-margin: calc(calc(var(--card-spacing) * 6) + calc(var(--card-width) * 5));
+    --pile-col7-margin: calc(calc(var(--card-spacing) * 7) + calc(var(--card-width) * 6));
+}
+
+/* Landscape */
+@media screen and (min-aspect-ratio: 1130 / 938) {
+    :root {
+        --bg-color: green;
+        --board-height: 100vh;
+        --board-width: calc(100vw - var(--board-margin)); 
+        --card-height: 24.25vh;
+        --card-spacing: 1vh;
+        --card-spacing-total: calc(var(--card-spacing) * 6);
+        --card-font-small: 5vh;
+        --card-font-large: 11vh;
+        --pile-margin-left: calc(var(--board-margin) + var(--card-spacing) + var(--no-name));
+        --tableau-height: calc(calc(var(--board-height) - calc(var(--card-spacing) * 3)) - var(--card-height));
+        --tableau-top: calc(calc(var(--card-spacing) * 2) + var(--card-height));
+        --top-row-margin: var(--card-spacing);
+        --no-name: calc(calc(100vw - calc(calc(var(--card-spacing) * 8) + calc(var(--card-width) * 7) + 50px)) / 2);
+        --pile-col1-margin: var(--pile-margin-left);
+        --pile-col2-margin: calc(var(--pile-margin-left) + var(--card-width) + var(--card-spacing));
+        --pile-col3-margin: calc(var(--pile-margin-left) + calc(calc(var(--card-width) + var(--card-spacing)) * 2));
+        --pile-col4-margin: calc(var(--pile-margin-left) + calc(calc(var(--card-width) + var(--card-spacing)) * 3));
+        --pile-col5-margin: calc(var(--pile-margin-left) + calc(calc(var(--card-width) + var(--card-spacing)) * 4));
+        --pile-col6-margin: calc(var(--pile-margin-left) + calc(calc(var(--card-width) + var(--card-spacing)) * 5));
+        --pile-col7-margin: calc(var(--pile-margin-left) + calc(calc(var(--card-width) + var(--card-spacing)) * 6));
+    }
+}
+
+body {
+    background-color: var(--bg-color);
+}

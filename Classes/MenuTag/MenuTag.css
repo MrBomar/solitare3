@@ -1,0 +1,56 @@
+.menuTag {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(20vw);
+    height: 100px;
+    top: var(--board-margin);
+    background-color: rgb(50,50,50);
+    color: silver;
+    animation-name: slide-in;
+    animation-duration: 0.25s;
+    text-align: center;
+    padding-top: 20px;
+    z-index: 100;
+}
+
+.hiddenTag {
+    display: none !important;
+}
+
+#homeTag { left: 0vw }
+#undoTag { left: 20vw }
+#randomTag { left: 40vw }
+#solvableTag { left: 60vw }
+#replayTag { left: 80vw }
+
+@keyframes slide-in {
+    from {top: -100px}
+    to {top: var(--board-margin)}
+}
+
+@media screen and (min-aspect-ratio: 1130 / 938) {    
+    .menuTag {
+        display: flex;
+        width: 200px;
+        height: calc(20vh);
+        padding-top: 0px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .hiddenTag {
+        display: none;
+    }
+
+    #homeTag { top: 0vh; left: 50px }
+    #undoTag { top: 20vh; left: 50px }
+    #randomTag { top: 40vh; left: 50px }
+    #solvableTag { top: 60vh; left: 50px }
+    #replayTag { top: 80vh; left: 50px }
+
+    @keyframes slide-in {
+        from {left: -100px}
+        to {left: var(--board-margin)}
+    }
+}

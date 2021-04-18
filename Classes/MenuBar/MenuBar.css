@@ -1,0 +1,13 @@
+#menuBar {
+    width: 100vw;
+    height: 50px;
+    background-color: black;
+    z-index: 100;
+}
+
+@media screen and (min-aspect-ratio: 1130 / 938) {
+    #menuBar {
+        width: 50px;
+        height: 100vh;
+    }
+}

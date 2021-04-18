@@ -1,0 +1,37 @@
+#autoSolve {
+    color: black;
+    top: var(--top-row-margin);
+    left: var(--pile-col3-margin);
+    height: var(--card-height);
+    width: var(--card-width);
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+#autoSolveButton {
+    height: var(--card-width);
+    width: var(--card-width);
+    background-color: rgb(255, 125, 0);
+    display: flex;
+    align-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#autoSolveButton.hidden {
+    display: none;
+}
+
+#autoSolveButton:hover {
+    background-color: rgb(255, 150, 0);
+}
+
+#autoSolveButton.mouseDown {
+    box-shadow: 1px 1px 5px #555 inset;
+}
+
+#autoSolveText {
+    text-align: center;
+}

@@ -1,0 +1,7 @@
+.stock {
+    top: var(--top-row-margin);
+    left: var(--pile-col1-margin);
+    height: var(--card-height);
+    width: var(--card-width);
+    background-color: var(--pile-bg-color);
+}

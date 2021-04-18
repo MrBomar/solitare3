@@ -1,0 +1,14 @@
+.tableau { 
+    background-color: var(--pile-bg-color);
+    height: var(--tableau-height);
+    top: var(--tableau-top);
+    width: var(--card-width);
+}
+
+#tableau1 { left: var(--pile-col1-margin) }
+#tableau2 { left: var(--pile-col2-margin) }
+#tableau3 { left: var(--pile-col3-margin) }
+#tableau4 { left: var(--pile-col4-margin) }
+#tableau5 { left: var(--pile-col5-margin) }
+#tableau6 { left: var(--pile-col6-margin) }
+#tableau7 { left: var(--pile-col7-margin) }

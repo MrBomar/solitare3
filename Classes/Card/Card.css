@@ -1,0 +1,86 @@
+/* 
+Default view is Portrait
+
+Available Variables in  index.css
+    --card-height (vw/portrait vh/landscape)
+    --card-width (based on card height)
+    --card-spacing (vh)
+    --card-spacing-total (used between card piles)
+    --card-row-small: (card-height * .25);
+    --card-row-large: (card-height * .50);
+    --card-column: (card-width / 3);
+*/
+
+.card {
+    border: 1px solid black;
+    border-radius: 1vw;
+    box-shadow: 1px 2px black;
+    box-sizing: border-box;
+    display: grid;
+    height: var(--card-height);
+    position: fixed;
+    width: var(--card-width);
+}
+
+.card h2 {
+    text-align: center;
+    font-size: var(--card-font-small);
+    line-height: var(--card-row-small);
+    width: var(--card-column);
+}
+
+.cardTopLeft {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+.cardTopRight {
+    grid-row: 1;
+    grid-column: 3;
+}
+
+.cardMiddle {
+    width: 100%;
+    max-width: 100%;
+    line-height: var(--card-row-large);
+    vertical-align: middle;
+    grid-row: 2;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    text-align: center;
+    font-size: var(--card-font-large);
+}
+
+.cardBottomLeft {
+    grid-row: 3;
+    grid-column: 1;
+}
+
+.cardBottomRight {
+    grid-row: 3;
+    grid-column: 3;
+}
+
+.face {
+    grid-template-rows: var(--card-row-small) var(--card-row-large) var(--card-row-small);
+    grid-template-columns: calc(var(--card-width) / 3) calc(var(--card-width) / 3) calc(var(--card-width) / 3);
+    background-color: white;
+}
+
+.rear {
+    background-color: teal;
+    border-style: ridge groove groove ridge;
+    border: var(--card-border) solid white;
+}
+
+.rear h1, .rear h2 {
+    display: none;
+}
+
+.S, .C {
+    color: black;
+}
+
+.D, .H {
+    color: red;
+}

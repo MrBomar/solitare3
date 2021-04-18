@@ -1,0 +1,7 @@
+.talon {
+    top: var(--top-row-margin);
+    left: var(--pile-col2-margin);
+    height: var(--card-height);
+    width: var(--card-width);
+    background-color: var(--pile-bg-color);
+}
