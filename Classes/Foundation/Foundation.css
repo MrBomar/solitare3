@@ -4,7 +4,7 @@
     justify-content: center;
     border: 1px inset;
     border-radius: 1vw;
-    font-size: 14vw;
+    font-size: var(--card-height);
     height: var(--card-height);
     text-align: center;
     top: var(--top-row-margin);
@@ -12,25 +12,7 @@
     z-index: -1;
 }
 
-.mobileSymbol {
-    padding-top: 5vw;
-    font-size: 8vw;
-    text-align: center;
-    width: 13.14vw;
-    z-index: -1;
-}
-
 #SFoundation { left: var(--pile-col4-margin) }
 #HFoundation { left: var(--pile-col5-margin); color: red; }
 #DFoundation { left: var(--pile-col7-margin); color: red; }
 #CFoundation { left: var(--pile-col6-margin); }
-
-@media screen and (min-aspect-ratio: 741 / 741) {
-    
-    .mobileSymbol {
-        padding-top: 5vh;
-        font-size: 8vh;
-        width: 13.14vh;
-        margin-top: 1vh;
-    }
-}

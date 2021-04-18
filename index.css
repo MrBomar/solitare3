@@ -9,16 +9,13 @@
 }
 
 :root {
-    --bg-color: red;
     --pile-bg-color: rgba(255, 255, 255, .25);
     --board-height: calc(100vh - 50px);
     --board-margin: 50px;
     --board-width: calc(100vw - var(--board-margin)); 
     --board-width: 100vw;
-    /* --card-height: 20.450285714285714285714285714286vw; */
     --card-width: calc(calc(100vw - calc(var(--card-spacing) * 8)) / 7) ;
     --card-height: calc(var(--card-width) * 1.555555555555556);
-    /* --card-width: calc(var(--card-height) * 0.6428571428571429); */
     --card-border: calc(var(--card-height) / 20);
     --card-quarter: calc(var(--card-height) / 4);
     --card-spacing: 1vw;
@@ -42,7 +39,6 @@
 /* Landscape */
 @media screen and (min-aspect-ratio: 1130 / 938) {
     :root {
-        --bg-color: green;
         --board-height: 100vh;
         --board-width: calc(100vw - var(--board-margin)); 
         --card-height: 24.25vh;
@@ -67,5 +63,5 @@
 }
 
 body {
-    background-color: var(--bg-color);
+    background-color: green;
 }
