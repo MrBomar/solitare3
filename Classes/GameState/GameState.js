@@ -35,8 +35,10 @@ export default class GameState {
         this.completeMove = this.completeMove.bind(this);
         this.dealFromStock = this.dealFromStock.bind(this);
         this.dealTimerAction = this.dealTimerAction.bind(this);
+        this.detectFullFoundations = this.detectFullFoundations.bind(this);
         this.detectWin = this.detectWin.bind(this);
         this.getCardPileAndIndex = this.getCardPileAndIndex.bind(this);
+        this.getFoundations = this.getFoundations.bind(this);
         this.getPile = this.getPile.bind(this);
         this.getTableau = this.getTableau.bind(this);
         this.loadGame = this.loadGame.bind(this);
@@ -152,6 +154,16 @@ export default class GameState {
         }
     }
 
+    detectFullFoundations() {
+        let test = true;
+        this.getFoundations().forEach(i => {
+            if(i.cards.length < 13) {
+                test = false;
+            }
+        })
+        return test;
+    }
+
     detectWin() {
         let completedTableau = this.getTableau().filter(i => {
             let completion = i.pileComplete();
@@ -167,6 +179,10 @@ export default class GameState {
             this.winDetected = true;
             this.autoSolveButton.unhide();
         }
+
+        if(this.detectFullFoundations() === true) {
+            alert("Full Foundations!");
+        }
     }
 
     getCardPileAndIndex(cardId_str, mousePOS = false) {
@@ -180,6 +196,8 @@ export default class GameState {
         })
         return cardPileIndex;
     }
+
+    getFoundations() {return (this.allPiles)? this.allPiles.filter(i => i instanceof Foundation): false;}
 
     getPile(pileName_str) { return (this.allPiles)? this.allPiles.find(i=> i.id == pileName_str): false;}
 
