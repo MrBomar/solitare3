@@ -19,7 +19,8 @@
 #solvableButton { left: 60vw }
 #replayButton { left: 80vw }
 
-@media screen and (min-aspect-ratio: 1130 / 938) {
+/* 1130 / 938 */
+@media screen and (min-aspect-ratio: 1210/1280) {
     .menuButton {
         display: flex;
         height: calc(20vh - 6px);

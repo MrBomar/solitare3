@@ -1,12 +1,13 @@
 //import Test from '../../Testing/Testing';
 
 export default class DOMObject {
-    constructor(id_str, type_str, parent_dom, eventListeners_arr_obj = false, cssClasses_arr_str = false, innerText = null) {
+    constructor(id_str, type_str, parent_dom, eventListeners_arr_obj = false, cssClasses_arr_str = false, innerText = null, innerHTML = null) {
         this.children = [];
         this.cssClasses = cssClasses_arr_str;
         this.eventListeners = eventListeners_arr_obj;
         this.fixedPOS = {left: 0, top: 0};
         this.id = id_str;
+        this.innerHTML = innerHTML;
         this.innerText = innerText;
         this.parent = parent_dom;
         this.type = type_str;
@@ -17,6 +18,7 @@ export default class DOMObject {
         this.addEventListener = this.addEventListener.bind(this);
         this.addEventListeners = this.addEventListeners.bind(this);
         this.build = this.build.bind(this);
+        this.buildChildren = this.buildChildren.bind(this);
         this.destroy = this.destroy.bind(this);
         this.removeCSSClass = this.removeCSSClass.bind(this);
         this.removeEventListeners = this.removeEventListeners.bind(this);
@@ -71,11 +73,16 @@ export default class DOMObject {
     build() {
         let me = document.createElement(this.type);
         me.id = this.id;
-        if(this.innerText != null) me.innerText = this.innerText;
+        if(this.innerText !== null) me.innerText = this.innerText;
+        if(this.innerHTML !== null) me.innerHTML = this.innerHTML;
         this.parent.appendChild(me);
         this.object = me;
         this.addAllCSSClasses();
         this.addEventListeners();
+    }
+
+    buildChildren() {
+        this.children.forEach(i=>i.build());
     }
 
     destroy() {

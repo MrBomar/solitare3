@@ -5,7 +5,8 @@
     z-index: 100;
 }
 
-@media screen and (min-aspect-ratio: 1130 / 938) {
+/* 1130 / 938 */
+@media screen and (min-aspect-ratio: 1210 / 1280) {
     #menuBar {
         width: 50px;
         height: 100vh;

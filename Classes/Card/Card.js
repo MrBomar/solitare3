@@ -33,7 +33,7 @@ export default class Card extends DOMObject {
         this.children.push(new DOMObject(this.id + 'Middle', 'h1', this.object, false, ['cardMiddle'], Conversion.ToSymbol(this.id.charAt(0))));
         this.children.push(new DOMObject(this.id + 'BottomLeft', 'h2', this.object, false, ['cardBottomLeft'], Conversion.ToSymbol(this.id.charAt(0))));
         this.children.push(new DOMObject(this.id + 'BottomRight', 'h2', this.object, false, ['cardBottomRight'], Conversion.ToFaceValue(this.id.charAt(1))));
-        this.children.forEach(i=>i.build());
+        this.buildChildren();
 
         //Display the proper side
         this.addCSSClass((this.face)?'face':'rear');

@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: calc(20vw);
+    width: 20vw;
     height: 100px;
     top: var(--board-margin);
     background-color: rgb(50,50,50);
@@ -10,7 +10,6 @@
     animation-name: slide-in;
     animation-duration: 0.25s;
     text-align: center;
-    padding-top: 20px;
     z-index: 100;
 }
 
@@ -29,7 +28,8 @@
     to {top: var(--board-margin)}
 }
 
-@media screen and (min-aspect-ratio: 1130 / 938) {    
+/* 1130 / 938 */
+@media screen and (min-aspect-ratio: 1210 / 1280) {    
     .menuTag {
         display: flex;
         width: 200px;

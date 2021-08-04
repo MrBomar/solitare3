@@ -32,6 +32,7 @@ Available Variables in  index.css
 .cardTopLeft {
     grid-row: 1;
     grid-column: 1;
+    margin-left: 2px;
 }
 
 .cardTopRight {
@@ -59,6 +60,7 @@ Available Variables in  index.css
 .cardBottomRight {
     grid-row: 3;
     grid-column: 3;
+    margin-left: -2px;
 }
 
 .face {

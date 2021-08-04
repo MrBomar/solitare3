@@ -1,0 +1,25 @@
+.modal {
+    background-color: rgba(0,0,0,.25);
+    height: calc(100vh - 150px);
+    width: 100vw;
+    z-index: 100;
+    margin-left: 0px;
+    margin-top: 150px;
+}
+
+.modalInner {
+    background-color: white;
+    width: calc(90% - 100px);
+    height: calc(90% - 100px);
+    margin: 5%;
+    padding: 50px;
+}
+
+@media screen and (min-aspect-ratio: 1210 / 1280) {
+    .modal {
+        width: calc(100vw - 250px);
+        height: 100vh;
+        margin-left: 250px;
+        margin-top: 0px;
+    }
+}

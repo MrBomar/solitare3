@@ -12,12 +12,14 @@ export default class MenuBar extends DOMObject {
         this.buildMenu = this.buildMenu.bind(this);
         this.getButtonId = this.getButtonId.bind(this);
         this.onButtonClick = this.onButtonClick.bind(this);
-        this.onButtonHover = this.onButtonHover.bind(this);
+        this.onButtonOut = this.onButtonOut.bind(this);
+        this.onButtonOver = this.onButtonOver.bind(this);
         this.onHomeClick = this.onHomeClick.bind(this);
         this.onRandomClick = this.onRandomClick.bind(this);
         this.onReplayClick = this.onReplayClick.bind(this);
         this.onSolvableClick = this.onSolvableClick.bind(this);
         this.onUndoClick = this.onUndoClick.bind(this);
+        this.toggleMenu = this.toggleMenu.bind(this);
         this.buildMenu();
     }
 
@@ -27,8 +29,8 @@ export default class MenuBar extends DOMObject {
         this.build();
 
         let actions = [
-            { action: 'mouseover', method: this.onButtonHover},
-            { action: 'mouseout', method: this.onButtonHover},
+            { action: 'mouseover', method: this.onButtonOver},
+            { action: 'mouseout', method: this.onButtonOut},
             { action: 'click', method: this.onButtonClick}
         ];
 
@@ -73,17 +75,24 @@ export default class MenuBar extends DOMObject {
         }
     }
 
-    onButtonHover(e) {
+    onButtonOut(e) {
         let buttonId = this.getButtonId(e.target.id);
         let me = this.children.find(i => i.id === (buttonId + "Tag"));
-        if(me.cssClasses.includes('hiddenTag')) {
-            me.removeCSSClass('hiddenTag');
-        } else {
+        if(!me.cssClasses.includes('hiddenTag') && !this.currentGame.menuBarOpen) {
             me.addCSSClass('hiddenTag');
         }
     }
 
+    onButtonOver(e) {
+        let buttonId = this.getButtonId(e.target.id);
+        let me = this.children.find(i => i.id === (buttonId + "Tag"));
+        if(me.cssClasses.includes('hiddenTag')) {
+            me.removeCSSClass('hiddenTag');
+        }
+    }
+
     onHomeClick() {
+        //Change this into an "about" modal.
         console.log('MenuBar.onHomeClick():');
     }
 
@@ -96,9 +105,11 @@ export default class MenuBar extends DOMObject {
     }
 
     onRandomClick() {
-        console.log(`MenuBar.onRandomClick():`);
+        this.currentGame.clearModal();
         let myDeck = new Deck(this.currentGame);
-        this.currentGame.clearGame(); 
+        this.toggleMenu(false);
+        if (this.currentGame.allPiles.length === 0) this.currentGame.buildTable();
+        this.currentGame.clearGame();
         this.currentGame.getPile('stock').cards = myDeck.getRandomDeck();
         this.currentGame.virginStock = [...this.currentGame.getPile('stock').cards]; //Store the deck before dealing.
         this.currentGame.getPile('stock').refresh();
@@ -113,5 +124,18 @@ export default class MenuBar extends DOMObject {
 
     onReplayClick() {
         console.log('MenuBar.onReplayClick():');
+    }
+
+    toggleMenu(open) {
+        this.currentGame.menuBarOpen = open;
+        this.children.forEach(i => {
+            if (i instanceof MenuTag) {
+                if(open) {
+                    i.removeCSSClass('hiddenTag');
+                } else {
+                    i.addCSSClass('hiddenTag');
+                }
+            }
+        })
     }
 }

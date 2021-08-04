@@ -1,0 +1,14 @@
+.modalPage > * {
+    position: relative;
+    margin: 20px;
+    height: 100%;
+}
+
+.modalPage {
+    display: flexbox;
+}
+
+ul, li {
+    position: static;
+    margin-left: 50px;
+}

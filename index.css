@@ -37,16 +37,17 @@
 }
 
 /* Landscape */
-@media screen and (min-aspect-ratio: 1130 / 938) {
+/* 1130 / 938 */
+@media screen and (min-aspect-ratio: 1210 / 1280) {
     :root {
         --board-height: 100vh;
-        --board-width: calc(100vw - var(--board-margin)); 
-        --card-height: 24.25vh;
+        --board-width: calc(100vw - var(--board-margin));
+        --card-height: 18.25vh;
         --card-width: calc(var(--card-height) * 0.6428571428571429);
         --card-spacing: 1vh;
         --card-spacing-total: calc(var(--card-spacing) * 6);
-        --card-font-small: 5vh;
-        --card-font-large: 11vh;
+        --card-font-small: 4vh;
+        --card-font-large: 9vh;
         --pile-margin-left: calc(var(--board-margin) + var(--card-spacing) + var(--no-name));
         --tableau-height: calc(calc(var(--board-height) - calc(var(--card-spacing) * 3)) - var(--card-height));
         --tableau-top: calc(calc(var(--card-spacing) * 2) + var(--card-height));

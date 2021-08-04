@@ -8,6 +8,7 @@ import AnimatedMoveUndo from '../Animation/AnimatedMoveUndo';
 import AnimatedMoveCancel from '../Animation/AnimatedMoveCancel';
 import CardAndPileIndex from '../DataModels/CardAndPileIndex';
 import AutoSolveDiv from '../AutoSolveButton/AutoSolveDiv';
+import Modal from '../Modal/Modal';
 
 export default class GameState {
     constructor() {
@@ -17,10 +18,12 @@ export default class GameState {
         this.animationLength = .50; //Longest animation length.
         this.animationTimer = null; //Need to write timer here.
         this.autoSolveButton = null;
+        this.currentModal = null;
         this.dealOrder = false;
         this.dealTimer = false;
         this.doubleClickTimer = false; //Null == expired
         this.menuBar = null;
+        this.menuBarOpen = true;
         this.selection = null;
         this.selectionTimer = null; //The timer will be added and removed based on game action.
         this.target = null;
@@ -28,8 +31,10 @@ export default class GameState {
         this.virginStock = false; //Here we store the virginStock deck - not to be modified.
         this.winDetected = false;
         this.autoSolve = this.autoSolve.bind(this);
+        this.buildTable = this.buildTable.bind(this);
         this.cancelMove = this.cancelMove.bind(this);
         this.clearDoubleClickTimer = this.clearDoubleClickTimer.bind(this);
+        this.clearModal = this.clearModal.bind(this);
         this.clearSelection = this.clearSelection.bind(this);
         this.clearTarget = this.clearTarget.bind(this);
         this.completeMove = this.completeMove.bind(this);
@@ -51,6 +56,15 @@ export default class GameState {
 
     autoSolve() {
         //AutoSolve Method
+    }
+
+    buildTable() {
+        ['1','2','3','4','5','6','7'].forEach(i => {this.allPiles.push(new Tableau(i))});
+        this.allPiles.push(new Stock(this));
+        this.allPiles.push(new Talon(this));
+        ['S', 'H', 'D', 'C'].forEach(i => { this.allPiles.push(new Foundation(i))});
+        this.autoSolveButton = new AutoSolveDiv(this, document.body);
+        this.startAnimationTimer();
     }
 
     cancelMove() {
@@ -86,6 +100,11 @@ export default class GameState {
         this.clearTarget();
         this.undoArray = [];
         this.virginStock = false;
+    }
+
+    clearModal() {
+        this.currentModal.destroy();
+        this.currentModal = null;
     }
 
     clearSelection() {
@@ -213,13 +232,12 @@ export default class GameState {
     }
 
     loadGame() {
-        ['1','2','3','4','5','6','7'].forEach(i => {this.allPiles.push(new Tableau(i))});
-        this.allPiles.push(new Stock(this));
-        this.allPiles.push(new Talon(this));
-        ['S', 'H', 'D', 'C'].forEach(i => { this.allPiles.push(new Foundation(i))});
         this.menuBar = new MenuBar(this);
-        this.autoSolveButton = new AutoSolveDiv(this, document.body);
-        this.startAnimationTimer();
+
+        //Maybe open the menu and load tip modal.
+        this.currentModal = new Modal(this, "tips");
+
+        //FixMe
     }
 
     onCardMouseDown(cardId_str, mousePOS) {
