@@ -22,7 +22,6 @@ export default class Modal extends DOMObject {
 
     addPage() {
         let page1 = new ModalPage(this.children[0].object, 1, "Web Solitare 2", []);
-        console.log(this.children[0]);
         this.children[0].children.push(page1);
     }
 

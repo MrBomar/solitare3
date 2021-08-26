@@ -87,7 +87,10 @@ export default class GameState {
 
     clearGame() {
         this.allPiles.forEach(i => {
-            i.cards.forEach(j => j.destroy());
+            i.cards.forEach(j => {
+                // console.log(`Destory being called on ${j.id}`)
+                j.destroy()
+            });
             i.cards = [];
         })
         this.animations = [];
@@ -103,8 +106,11 @@ export default class GameState {
     }
 
     clearModal() {
-        this.currentModal.destroy();
-        this.currentModal = null;
+        // console.log(`Modal destruction called on ${this.currentModal}`)
+        if (this.currentModal !== null) {
+            this.currentModal.destroy();
+            this.currentModal = null;
+        }
     }
 
     clearSelection() {
@@ -186,14 +192,12 @@ export default class GameState {
     detectWin() {
         let completedTableau = this.getTableau().filter(i => {
             let completion = i.pileComplete();
-            console.log(completion);
             if(completion == true){
                 return true;
             } else {
                 return false;
             }
         });
-        console.log(completedTableau);
         if(completedTableau.length == 7) {
             this.winDetected = true;
             this.autoSolveButton.unhide();

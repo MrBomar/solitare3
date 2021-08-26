@@ -86,6 +86,7 @@ export default class DOMObject {
     }
 
     destroy() {
+        // console.log(`Destroy called on ${this.id}`);
         this.removeEventListeners();
         if(this.children.length > 0) this.children.forEach(i=>i.destroy()); 
         this.parent.removeChild(this.object);
