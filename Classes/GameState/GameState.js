@@ -21,6 +21,7 @@ export default class GameState {
         this.currentModal = null;
         this.dealOrder = false;
         this.dealTimer = false;
+        this.deck = false; //This is where the Deck object will be kept.
         this.doubleClickTimer = false; //Null == expired
         this.menuBar = null;
         this.menuBarOpen = true;
@@ -28,7 +29,6 @@ export default class GameState {
         this.selectionTimer = null; //The timer will be added and removed based on game action.
         this.target = null;
         this.undoArray = []; //For use with the undo method
-        this.virginDeckString = false; //Here we store the virginDeckString - not to be modified.
         this.winDetected = false;
         this.attemptAutoMove = this.attemptAutoMove.bind(this);
         this.autoSolve = this.autoSolve.bind(this);
@@ -139,7 +139,7 @@ export default class GameState {
         this.selectionTimer = null;
         this.clearTarget();
         this.undoArray = [];
-        this.virginDeckString = null;
+        this.deck = null;
     }
 
     clearModal() {

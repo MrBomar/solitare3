@@ -19,6 +19,7 @@ export default class MenuBar extends DOMObject {
         this.onReplayClick = this.onReplayClick.bind(this);
         this.onSolvableClick = this.onSolvableClick.bind(this);
         this.onUndoClick = this.onUndoClick.bind(this);
+        this.resetBoard = this.resetBoard.bind(this);
         this.toggleMenu = this.toggleMenu.bind(this);
         this.buildMenu();
     }
@@ -105,27 +106,33 @@ export default class MenuBar extends DOMObject {
     }
 
     onRandomClick() {
-        this.currentGame.clearModal();
-        if(this.currentGame.autoSolveButton) this.currentGame.autoSolveButton.hide();
-        let myDeck = new Deck(this.currentGame);
-        this.toggleMenu(false);
-        if (this.currentGame.allPiles.length === 0) this.currentGame.buildTable();
-        this.currentGame.clearGame();
-        this.currentGame.getPile('stock').cards = myDeck.getRandomDeck();
-        this.currentGame.virginDeckString = myDeck.getDeckString();
-        this.currentGame.getPile('stock').refresh();
-        this.currentGame.dealFromStock();
-        //Test.Piles._Print_All_Piles_Cards();
-        onResizeRotate('deal');
-        console.log(`Virgin deck string ${this.currentGame.virginDeckString}`);
+        this.resetBoard('random');
     }
 
     onSolvableClick() {
-        console.log('MenuBar.onSolvableClick():');
+        this.resetBoard('solvable');
     }
 
     onReplayClick() {
         console.log('MenuBar.onReplayClick():');
+    }
+
+    resetBoard(type) {
+        // console.log(`MenuBar.onRandomClick() : Called.`);
+        this.currentGame.clearModal();
+        if(this.currentGame.autoSolveButton) this.currentGame.autoSolveButton.hide();
+        this.toggleMenu(false);
+        this.currentGame.clearGame();
+        if (this.currentGame.allPiles.length === 0) this.currentGame.buildTable();
+        // console.log(`MenuBar.onRandomClick() : new Deck about to be called.`);
+        this.currentGame.deck = new Deck(this.currentGame, 'solvable');
+        // console.log(`MenuBar.onRandomClick() : cards being moved to GameState.deck`);
+        this.currentGame.getPile('stock').cards = this.currentGame.deck.deck;
+        this.currentGame.getPile('stock').refresh();
+        this.currentGame.dealFromStock();
+        //Test.Piles._Print_All_Piles_Cards();
+        onResizeRotate('deal');
+        console.log(`Virgin deck string ${this.currentGame.deck.convertDeckToString()}`);
     }
 
     toggleMenu(open) {
