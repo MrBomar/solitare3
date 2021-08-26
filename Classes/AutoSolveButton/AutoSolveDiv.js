@@ -7,6 +7,7 @@ export default class AutoSolveDiv extends DOMObject {
         super('autoSolve', 'div', parent_dom, false, false);
         this.currentGame = currentGame;
         this.buildDiv = this.buildDiv.bind(this);
+        this.hide = this.hide.bind(this);
         this.unhide = this.unhide.bind(this);
         this.buildDiv();
     }
@@ -16,6 +17,10 @@ export default class AutoSolveDiv extends DOMObject {
 
         //Add children elements
         this.children.push(new AutoSolveButton(this.currentGame, this.object));
+    }
+
+    hide() {
+        this.children[0].hide();
     }
 
     unhide() {

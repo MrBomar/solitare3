@@ -30,6 +30,7 @@ export default class GameState {
         this.undoArray = []; //For use with the undo method
         this.virginStock = false; //Here we store the virginStock deck - not to be modified.
         this.winDetected = false;
+        this.attemptAutoMove = this.attemptAutoMove.bind(this);
         this.autoSolve = this.autoSolve.bind(this);
         this.buildTable = this.buildTable.bind(this);
         this.cancelMove = this.cancelMove.bind(this);
@@ -51,11 +52,47 @@ export default class GameState {
         this.setDoubleClickTimer = this.setDoubleClickTimer.bind(this);
         this.setTarget = this.setTarget.bind(this);
         this.startAnimationTimer = this.startAnimationTimer.bind(this);
+        this.tableIsEmpty = this.tableIsEmpty.bind(this);
         this.loadGame();
+    }
+
+    attemptAutoMove() {
+        //In order for this function to work the selection must be set before calling.
+        //This function will search for a valid play and complete or cancel the move.
+        
+        //Fix Me - Add function to exclude tableau from possible targets.
+
+        this.target = this.getValidTarget();
+        if(this.target === undefined){
+            this.cancelMove();
+        } else if(this.selection.cards[0].face){
+            this.completeMove();
+        }
     }
 
     autoSolve() {
         //AutoSolve Method
+        //Fix Me - Autosolve method needs to be defined.
+
+        //Currently this process will run once per click. This will eventually
+        //need to be put on a timer loop.
+
+        //First verify that there are cards left on the board not in the foundations.
+        if(!this.tableIsEmpty) {
+            //Proposed Process
+            // 1) Cycle through the Tableau.
+            // 2) If a valid play is found then cancel.
+            // 3) If a valid play is not found continue checking rest of tableau.
+            // 4) If no tableau is found then attmpt the talon.
+            // 5) If no talon then cycle the stock.
+        }
+    }
+
+    tableIsEmpty() {
+        let table = this.getTableau().concat(this.getPile('Stock')).concat(this.getPile('Talon')).filter(pile => {
+            return pile.cards.length > 0;
+        }); 
+        return (table.length > 0)?false:true;
     }
 
     buildTable() {
@@ -227,7 +264,7 @@ export default class GameState {
     getTableau() {return (this.allPiles)? this.allPiles.filter(i => i instanceof Tableau): false;}
 
     getValidTarget() {
-        //Something is breaking here
+        //Fix Me - Need to add function to exclude tableau from possible targets.
         let filteredPiles = this.allPiles.filter(i => {
             if((i.id !== this.selection.pile.id) && (i.id != 'stock') && (i.id != 'talon')) return true;
         });
@@ -269,12 +306,7 @@ export default class GameState {
                         if(this.doubleClickTimer) {
                             
                             //Double click initiated
-                            this.target = this.getValidTarget();
-                            if(this.target === undefined){
-                                this.cancelMove();
-                            } else if(this.selection.cards[0].face){
-                                this.completeMove();
-                            }
+                            this.attemptAutoMove();
 
                         } else {
                             this.setDoubleClickTimer();

@@ -106,6 +106,9 @@ export default class MenuBar extends DOMObject {
 
     onRandomClick() {
         this.currentGame.clearModal();
+        console.log(`Something else:`);
+        console.log(this.currentGame.autoSolveButton);
+        if(this.currentGame.autoSolveButton !== null) this.currentGame.autoSolveButton.hide();
         let myDeck = new Deck(this.currentGame);
         this.toggleMenu(false);
         if (this.currentGame.allPiles.length === 0) this.currentGame.buildTable();

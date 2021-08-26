@@ -5,6 +5,7 @@ export default class AutoSolveButton extends DOMObject {
         super('autoSolveButton', 'div', parent_dom, false, ['hidden']);
         this.currentGame = currentGame;
         this.buildButton = this.buildButton.bind(this);
+        this.hide = this.hide.bind(this);
         this.onMouseClick = this.onMouseClick.bind(this);
         this.onMouseDown = this.onMouseDown.bind(this);
         this.onMouseUp = this.onMouseUp.bind(this);
@@ -22,6 +23,10 @@ export default class AutoSolveButton extends DOMObject {
         //Children are added after the build
         this.children.push(new DOMObject('autoSolveText', 'h1', this.object, false, false, 'Auto Solve'));
         this.children[0].build();
+    }
+
+    hide() {
+        if(!this.hasCSSClass('hidden')) this.addCSSClass('hidden');
     }
 
     onMouseClick(e) {
