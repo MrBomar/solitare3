@@ -130,7 +130,6 @@ export default class MenuBar extends DOMObject {
     }
 
     setBoard() {
-        console.log(this.currentGame);
         this.currentGame.getPile('stock').cards = this.currentGame.deck.deck;
         this.currentGame.getPile('stock').refresh();
         this.currentGame.dealFromStock();

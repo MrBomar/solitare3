@@ -79,12 +79,9 @@ export default class Deck {
     deckStringConversion(str) {
         //Convert string to array of strings
         let arr = this.convertStringToArray(str);
-        console.log(`Deck.checkStringVersion():`);
-        console.log(arr);
 
         switch (arr[0][0]) {
             case "c" : case "s" : case "h" : case "d":
-                console.log("Old Version");
                 //Cycle through each string and convert to new version
                 return arr.map(i => Conversion.OldToNew(i));
             default:
@@ -93,7 +90,6 @@ export default class Deck {
     }
 
     getSolvableDeck() {
-        //FIX ME - Experimental
         new Promise((resolve, reject)=>{
             let xhr = new XMLHttpRequest;
             xhr.open('GET', "https://mrlesbomar.com/games/cgi-bin/get_solved_deck.php");
@@ -107,12 +103,10 @@ export default class Deck {
             xhr.onerror = () => reject(xhr.statusText);
             xhr.send();
         }).then(stuff=> {
-            //FIX ME - Need to detect if this is the old format or new format.
-            //FIX ME - Need to convert old string to new string.
-
             this.deck = this.convertArrayToDeck(this.deckStringConversion(stuff));
             this.pappy.setBoard();
         }).catch(error=>{
+            //FIX ME - Need to create a working error message. - The below code likely does not work.
             //Create status screen and deal random deck
             let notice = document.createElement('div');
             notice.id = 'notice';

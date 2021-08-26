@@ -32,6 +32,7 @@ export default class AutoSolveButton extends DOMObject {
     onMouseClick(e) {
         //Execute the auto solve feature
         console.log('AutoSolveButton.onMouseClick()');
+        this.currentGame.autoSolve();
     }
 
     onMouseDown(e) {

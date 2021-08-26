@@ -71,6 +71,7 @@ export default class GameState {
     }
 
     autoSolve() {
+        console.log(`GameState.autoSolve()`);
         //AutoSolve Method
         //Fix Me - Autosolve method needs to be defined.
 
@@ -78,18 +79,21 @@ export default class GameState {
         //need to be put on a timer loop.
 
         //First verify that there are cards left on the board not in the foundations.
-        if(!this.tableIsEmpty) {
+        if(!this.tableIsEmpty()) {
+
             //Proposed Process
             // 1) Cycle through the Tableau.
             // 2) If a valid play is found then cancel.
             // 3) If a valid play is not found continue checking rest of tableau.
             // 4) If no tableau is found then attmpt the talon.
             // 5) If no talon then cycle the stock.
+            console.log("And here we go!");
         }
     }
 
     tableIsEmpty() {
-        let table = this.getTableau().concat(this.getPile('Stock')).concat(this.getPile('Talon')).filter(pile => {
+        console.log(`GameState.tableIsEmpty()`);
+        let table = this.getTableau().concat(this.getPile('stock')).concat(this.getPile('talon')).filter(pile => {
             return pile.cards.length > 0;
         }); 
         return (table.length > 0)?false:true;
