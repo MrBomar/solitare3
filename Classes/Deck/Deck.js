@@ -2,16 +2,18 @@ import Card from '../Card/Card';
 import Conversion, {CardValues} from  '../../Methods/Conversions';
 
 export default class Deck {
-    constructor(currentGame, type) {
+    constructor(currentGame, type, pappy) {
         this.currentGame = currentGame;
         this.deck = null;
         this.type = type; //Stores the type of deck specified
+        this.pappy = pappy;
         this.buildDeck = this.buildDeck.bind(this);
         this.buildRandomDeck = this.buildRandomDeck.bind(this);
         this.convertArrayToDeck = this.convertArrayToDeck.bind(this);
         this.convertDeckToArray = this.convertDeckToArray.bind(this);
         this.convertDeckToString = this.convertDeckToString.bind(this);
         this.convertStringToArray = this.convertStringToArray.bind(this);
+        this.deckStringConversion = this.deckStringConversion.bind(this);
         this.getSolvableDeck = this.getSolvableDeck.bind(this);
         this.randomizeArray = this.randomizeArray.bind(this);
         this.buildDeck('Init');
@@ -74,12 +76,49 @@ export default class Deck {
         return false;
     }
 
-    getSolvableDeck() {
-        //Grabs a previously solved deck from web server
-        let solvableDeck = 'CIDKHISHSEDBCHHACJCBHFSBDIHKDADCDFHCSLCDSGDGCGHJHHHGSFSISACFCLDLHDHLCKSJDEHECECCHBSMSDCMDHSKHMCASCDJDDDM';
+    deckStringConversion(str) {
+        //Convert string to array of strings
+        let arr = this.convertStringToArray(str);
+        console.log(`Deck.checkStringVersion():`);
+        console.log(arr);
 
-        //Convert string to playable deck
-        this.deck = this.convertArrayToDeck(this.convertStringToArray(solvableDeck));
+        switch (arr[0][0]) {
+            case "c" : case "s" : case "h" : case "d":
+                console.log("Old Version");
+                //Cycle through each string and convert to new version
+                return arr.map(i => Conversion.OldToNew(i));
+            default:
+                return arr;
+        }
+    }
+
+    getSolvableDeck() {
+        //FIX ME - Experimental
+        new Promise((resolve, reject)=>{
+            let xhr = new XMLHttpRequest;
+            xhr.open('GET', "https://mrlesbomar.com/games/cgi-bin/get_solved_deck.php");
+            xhr.onload = () =>{
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    resolve(xhr.response);
+                } else {
+                    reject(xhr.statusText);
+                }
+            }
+            xhr.onerror = () => reject(xhr.statusText);
+            xhr.send();
+        }).then(stuff=> {
+            //FIX ME - Need to detect if this is the old format or new format.
+            //FIX ME - Need to convert old string to new string.
+
+            this.deck = this.convertArrayToDeck(this.deckStringConversion(stuff));
+            this.pappy.setBoard();
+        }).catch(error=>{
+            //Create status screen and deal random deck
+            let notice = document.createElement('div');
+            notice.id = 'notice';
+            notice.innerHTML = `<h1>Unable to connect to the server. Please choose a random deck.</h1>`;
+            document.getElementsByTagName('main')[0].appendChild(notice);
+        });
     }
 
     randomizeArray(myArray) {

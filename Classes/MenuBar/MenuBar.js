@@ -10,6 +10,7 @@ export default class MenuBar extends DOMObject {
         super('menuBar', 'div', document.body);
         this.currentGame = currentGame;
         this.buildMenu = this.buildMenu.bind(this);
+        this.clearBoard = this.clearBoard.bind(this);
         this.getButtonId = this.getButtonId.bind(this);
         this.onButtonClick = this.onButtonClick.bind(this);
         this.onButtonOut = this.onButtonOut.bind(this);
@@ -19,7 +20,7 @@ export default class MenuBar extends DOMObject {
         this.onReplayClick = this.onReplayClick.bind(this);
         this.onSolvableClick = this.onSolvableClick.bind(this);
         this.onUndoClick = this.onUndoClick.bind(this);
-        this.resetBoard = this.resetBoard.bind(this);
+        this.setBoard = this.setBoard.bind(this);
         this.toggleMenu = this.toggleMenu.bind(this);
         this.buildMenu();
     }
@@ -46,6 +47,14 @@ export default class MenuBar extends DOMObject {
         this.children.push(new MenuButton('solvable', this.object, actions, "✔"));
         this.children.push(new MenuTag('replay', this.object, actions, 'Replay'));
         this.children.push(new MenuButton('replay', this.object, actions, "⥀"));
+    }
+
+    clearBoard() {
+        this.currentGame.clearModal();
+        if(this.currentGame.autoSolveButton) this.currentGame.autoSolveButton.hide();
+        this.toggleMenu(false);
+        this.currentGame.clearGame();
+        if (this.currentGame.allPiles.length === 0) this.currentGame.buildTable();
     }
 
     getButtonId(id_str) {
@@ -106,31 +115,25 @@ export default class MenuBar extends DOMObject {
     }
 
     onRandomClick() {
-        this.resetBoard('random');
+        this.clearBoard();
+        this.currentGame.deck = new Deck(this.currentGame, 'random', this);
+        this.setBoard();
     }
 
     onSolvableClick() {
-        this.resetBoard('solvable');
+        this.clearBoard();
+        this.currentGame.deck = new Deck(this.currentGame, 'solvable', this);
     }
 
     onReplayClick() {
         console.log('MenuBar.onReplayClick():');
     }
 
-    resetBoard(type) {
-        // console.log(`MenuBar.onRandomClick() : Called.`);
-        this.currentGame.clearModal();
-        if(this.currentGame.autoSolveButton) this.currentGame.autoSolveButton.hide();
-        this.toggleMenu(false);
-        this.currentGame.clearGame();
-        if (this.currentGame.allPiles.length === 0) this.currentGame.buildTable();
-        // console.log(`MenuBar.onRandomClick() : new Deck about to be called.`);
-        this.currentGame.deck = new Deck(this.currentGame, 'solvable');
-        // console.log(`MenuBar.onRandomClick() : cards being moved to GameState.deck`);
+    setBoard() {
+        console.log(this.currentGame);
         this.currentGame.getPile('stock').cards = this.currentGame.deck.deck;
         this.currentGame.getPile('stock').refresh();
         this.currentGame.dealFromStock();
-        //Test.Piles._Print_All_Piles_Cards();
         onResizeRotate('deal');
         console.log(`Virgin deck string ${this.currentGame.deck.convertDeckToString()}`);
     }

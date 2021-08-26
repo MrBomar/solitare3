@@ -2,6 +2,7 @@ const AlphaScale = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O",
 const CardSymbols = ["A",  2,  3,  4,  5,  6,  7,  8,  9, 10,"J","Q","K"];
 const CardValues = ["A","B","C","D","E","F","G","H","I","J","K","L","M"];
 const SuiteScale = ["S","C","H","D","♠","♣","♥","♦"];
+const OldValueScale = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D"];
 
 const FromAlpha = (value) => AlphaScale.indexOf(value);
 
@@ -21,6 +22,10 @@ const SuiteSymbols = () => SuiteScale.slice(4,8);
 
 const InterpretID = (a) => `${ToSymbol(a.charAt(0)) + ToFaceValue(a.charAt(1))}`;
 
+const OldToNew = (str) => {
+    return String(str[0]).toUpperCase() + CardValues[OldValueScale.indexOf(str[1])];
+};
+
 const Conversion = {
     FromAlpha: FromAlpha,
     ToAlpha: ToAlpha,
@@ -30,7 +35,8 @@ const Conversion = {
     FromSymbol: FromSymbol,
     SuiteValues: SuiteValues,
     SuiteSymbols: SuiteSymbols,
-    InterpretID: InterpretID
+    InterpretID: InterpretID,
+    OldToNew: OldToNew
 }
 
 export default Conversion;
