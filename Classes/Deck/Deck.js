@@ -4,10 +4,16 @@ import Conversion, {CardValues} from  '../../Methods/Conversions';
 export default class Deck {
     constructor(currentGame) {
         this.currentGame = currentGame;
+        this.deck = null;
+        this.getDeckString = this.getDeckString.bind(this);
         this.getRandomDeck = this.getRandomDeck.bind(this);
         this.getSolvableDeck = this.getSolvableDeck.bind(this);
         this.randomizeArray = this.randomizeArray.bind(this);
         this.reconstituteDeck = this.reconstituteDeck.bind(this);
+    }
+
+    getDeckString() {
+        return this.deck.join('');
     }
 
     getRandomDeck() {
@@ -19,8 +25,10 @@ export default class Deck {
             })
         });
 
+        this.deck = this.randomizeArray(deckString);
+
         //Shuffle the new deck and builds the card objects
-        return this.randomizeArray(deckString).map(i => new Card(this.currentGame, i, document.body, false));
+        return this.deck.map(i => new Card(this.currentGame, i, document.body, false));
     }
 
     getSolvableDeck() {

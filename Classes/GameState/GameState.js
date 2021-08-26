@@ -28,7 +28,7 @@ export default class GameState {
         this.selectionTimer = null; //The timer will be added and removed based on game action.
         this.target = null;
         this.undoArray = []; //For use with the undo method
-        this.virginStock = false; //Here we store the virginStock deck - not to be modified.
+        this.virginDeckString = false; //Here we store the virginDeckString - not to be modified.
         this.winDetected = false;
         this.attemptAutoMove = this.attemptAutoMove.bind(this);
         this.autoSolve = this.autoSolve.bind(this);
@@ -139,7 +139,7 @@ export default class GameState {
         this.selectionTimer = null;
         this.clearTarget();
         this.undoArray = [];
-        this.virginStock = false;
+        this.virginDeckString = null;
     }
 
     clearModal() {

@@ -106,19 +106,18 @@ export default class MenuBar extends DOMObject {
 
     onRandomClick() {
         this.currentGame.clearModal();
-        console.log(`Something else:`);
-        console.log(this.currentGame.autoSolveButton);
-        if(this.currentGame.autoSolveButton !== null) this.currentGame.autoSolveButton.hide();
+        if(this.currentGame.autoSolveButton) this.currentGame.autoSolveButton.hide();
         let myDeck = new Deck(this.currentGame);
         this.toggleMenu(false);
         if (this.currentGame.allPiles.length === 0) this.currentGame.buildTable();
         this.currentGame.clearGame();
         this.currentGame.getPile('stock').cards = myDeck.getRandomDeck();
-        this.currentGame.virginStock = [...this.currentGame.getPile('stock').cards]; //Store the deck before dealing.
+        this.currentGame.virginDeckString = myDeck.getDeckString();
         this.currentGame.getPile('stock').refresh();
         this.currentGame.dealFromStock();
         //Test.Piles._Print_All_Piles_Cards();
         onResizeRotate('deal');
+        console.log(`Virgin deck string ${this.currentGame.virginDeckString}`);
     }
 
     onSolvableClick() {
