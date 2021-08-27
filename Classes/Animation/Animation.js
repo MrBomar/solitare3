@@ -4,7 +4,8 @@ export default class Animation {
     constructor(currentGame, selection, target) {
         this.currentGame = currentGame;
         this.frameData = null; //property set at build()
-        this.frames = [];
+        this.frames = []; //This array will store the frames before they are executed.
+        this.framesNeeded = 0; //This property will be used to generate the frames needed.
         this.posData = null; //property set at build()
         this.selection = selection;
         this.target = target;
@@ -29,7 +30,10 @@ export default class Animation {
         }
     }
     
+    //Maybe change this function name to 'calculateFrames'
     setFrameData() {
+        //FIX ME - Change this to capture and store the number of frames needed in Animation.framesNeeded.
+        //FIX ME - We will change the animation process to have each frame calculate it's own movement.
         let xMaxPixelsPerFrame = window.innerWidth / (this.currentGame.animationFrameRate * this.currentGame.animationLength);
         let yMaxPixelsPerFrame = window.innerHeight / (this.currentGame.animationFrameRate * this.currentGame.animationLength);
         let transX = this.posData.endLeft - this.posData.startLeft;
@@ -39,6 +43,7 @@ export default class Animation {
         let totalFrames = Math.round((framesX > framesY)? framesX : framesY);    
         let pixelsPerFrameX = Math.round(transX / totalFrames);
         let pixelsPerFrameY = Math.round(transY / totalFrames); 
+        //Change the below variable name to 'framesNeeded'
         this.frameData =  {xPixels: pixelsPerFrameX, yPixels: pixelsPerFrameY, frames: totalFrames};
     }
 
