@@ -43,6 +43,7 @@ export default class Animation {
     }
 
     setPOSData() {
+        console.log(this.target);
         let posData = {startLeft: this.selection.cards[0].getLeft(), startTop: this.selection.cards[0].getTop(), endLeft: this.target.getLeft(), endTop: this.target.getTop()};
         
         if(this.target instanceof Tableau) { //Modify end position if target is Tableau

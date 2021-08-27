@@ -1,0 +1,38 @@
+Build new AnimatedMove object
+    AnimatedMove.build() -- Runs upon instanciation
+        AnimatedMove.setType() -- 'preflip', 'deal', 'noflip', 'restock', 'postflip'
+        Animation.setPOSData() -- Sets the initial & end position of the card [sLeft, sTop, eLeft, eTop] in Animation.posData
+            DOMObject.getLeft() -- Grabs the offsetLeft of the object. Accessing the card.
+            DOMObject.getTop() -- Grabs theoffsetTop of the object. Access the card.
+            DOMObject.getLeft() -- Grabs the offsetLeft of the object. Accessing the pile.
+            DOMObject.getTop() -- Grabs theoffsetTop of the object. Accessing the pile.
+            IF target pile IS 'Tableau'
+                Tableau.nextCardPOS() -- Gets the end position for the move.
+                    IF 'Tableau' IS empty
+                        DOMObject.getLeft() -- Grabs the offsetLeft of the object. Accessing the pile.
+                        DOMObject.getTop() -- Grabs theoffsetTop of the object. Accessing the pile.
+                    ELSE
+                        Pile.getTopCard() -- Grabs topmost card from pile.
+                        DOMObject.getTop() -- Grabs theoffsetTop of the object. Access the card.
+                        Tableau.calculateMargin() -- Calculates margin based on # of cards face down or face up.
+                        DOMObject.getLeft() -- Grabs theoffsetTop of the object. Accessing the pile.
+        Animation.setFrameData() -- calculates the # of frames and the # of pixels moved per frame.
+        IF 'type' IS 'preflip' OR 'restock'
+            Push new AnimatedFlip onto AnimatedMove.frames -- stores pointers to cards
+            Push cards onto AnimatedMove.flips
+        Animation.transferCards() -- Cuts the selected cards from the origin pile and pastes them onto the end pile.
+        Push a new AnimationFrame onto AnimatedMove.frames for each frame needed -- stores the number of pixels to move per frame
+        Push a new AnimatedRefresh ontoAnimatedMove.frames -- stores the selection pile and target pile
+        IF 'type' IS 'postflip' AND 'selection' has cards (Note: cards have already been cut and pasted)
+            Pile.getTopCard() -- Grabs topmost card
+            IF 'topcard' IS face down
+                Push new AnimatedFlip onto AnimatedMove.frames - stores pointers to cards
+                Push 'topcard' onto AnimatedMove.flips
+        IF 'type' IS 'deal' AND the number of current cards in pile IS equal to the intitial amoutnt required
+            //Essentially flip the tops card on Tableau during deal
+        Push new AnimatedDetectWin onto AnimatedMoved.frames.
+            //Essentially a final action to check if Tableau is void of any facedown cards.
+Push new AnimatedUndoMove onto GameState.undoArray
+Push completed AnimatedMove onto GameState.animations
+Clear selection
+Clear target
